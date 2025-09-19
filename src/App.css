@@ -1,6 +1,25 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.site-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1vh;
+    padding-bottom: 1vh;
+    border-bottom: rgb(230, 230, 230) solid 1px;
+}
+
+#site-name{
+    margin-left: 5vw;
+}
+
+#navigation-container{
+    margin-right: 30vw;
+}
+
+#nav-search{
+    width: 18vw;
+    height: 6vh;
+}
+
+button{
+    margin-left: 1vw;
 }
