@@ -1,12 +1,18 @@
 import React from "react";
+import {type SearchResult} from "./poem";
 
 const fetchContent = (url: URL) => {
     return fetch(url, {
         method: "GET",
         mode: "cors",
     })
-    .then(res => res.json())
-    .then(data => data);
+    .then(response => {
+        if(!response.ok){
+            throw new Error(`error status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then((data: SearchResult) => data);
 };
 
 const searchWithKeys = (searchKeyList : string[][]) => {
@@ -20,8 +26,8 @@ const searchWithKeys = (searchKeyList : string[][]) => {
 const searchPoem = (ref : React.RefObject<HTMLInputElement | null>) => {
     if(ref.current){
             const searchString : string = ref.current.value.replace(" ", "%20")
-            const searchKeyList : string[][] = [["book", searchString]]
-            searchWithKeys(searchKeyList);
+            const searchKeyList : string[][] = [["poem", searchString]]
+            return searchWithKeys(searchKeyList);
         }
 }
 
