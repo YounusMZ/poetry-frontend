@@ -1,5 +1,5 @@
 export interface Poem {
-    "": string,
+    index: string,
     Title: string,
     Poem: string,
     Poet: string,

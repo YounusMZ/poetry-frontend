@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from 'react-router';
 import './App.css';
 import Search  from './Components/Search/Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Poem, SearchResult } from './Util/poem';
 
 function App() {
@@ -10,9 +10,12 @@ function App() {
 
   const updateSearchResults = (newResults : SearchResult) => {
     setSearchResults(newResults);
-    //console.log("updated you fool", searchResults);
-    navigate("/results", {state: {searchResults: searchResults}})
+    console.log("updated you", searchResults);
   };
+
+  useEffect(() => {
+    navigate("/results", {state: {searchResults: searchResults}})
+  }, [searchResults]);
 
   return (
     <>
@@ -28,7 +31,7 @@ function App() {
           <Outlet context={searchResults}/>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default App;
