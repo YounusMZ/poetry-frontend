@@ -1,3 +1,21 @@
 .poem-list-container{
-    margin-top: 10vh;
+    margin-top: 8vh;
+}
+
+.poem-list-row-one{
+    margin-bottom: 2vh;
+}
+
+.poem-list-row-two{
+    margin-bottom: 1vh;
+}
+
+.poem-list-column{
+    max-width: 20vw;
+}
+
+@media only screen and (max-width: 576px) {
+    .poem-list-container{
+        margin-top: 1vh;
+    }
 }

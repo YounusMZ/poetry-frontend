@@ -4,7 +4,7 @@ import { type Poem } from "../../Util/poem";
 import "./PoemDetailsCard.css"
 import { useNavigate } from "react-router";
 
-const PoemDetailsCard : React.FC<Poem> = (poem: Poem) => {
+const PoemDetailsCard: React.FC<Poem> = (poem: Poem) => {
     const  navigate = useNavigate();
 
     const onPoemClick : MouseEventHandler = () => {
@@ -15,9 +15,9 @@ const PoemDetailsCard : React.FC<Poem> = (poem: Poem) => {
         <>
             <Card className="poem-details-card" onClick={onPoemClick}>
                 <Card.Body>
-                    <Card.Title className="mb-2">{poem.Title}</Card.Title>
-                    <Card.Subtitle className="mb-3">{poem.Poet}</Card.Subtitle>
-                    <Card.Text>{poem.Poem.substring(0, 100) + "..."}</Card.Text>
+                    <Card.Title className="poem-title mb-2">{poem.Title}</Card.Title>
+                    <Card.Subtitle className="poem-author mb-3">{"By " + poem.Poet}</Card.Subtitle>
+                    <Card.Text>{poem.Poem.substring(0, 50) + "..."}</Card.Text>
                 </Card.Body>
             </Card>
         </>

@@ -1,66 +1,68 @@
-import React, { useEffect, useState, type JSX } from "react";
-import Card from "react-bootstrap/Card";
+import React, { useEffect, useState, type JSX} from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useLocation, useOutletContext } from "react-router";
+import { useLocation } from "react-router";
 import type { SearchResult } from "../../Util/poem";
 import PoemDetailsCard from "../PoemDetailsCard/PoemDetailsCard";
-import "./PoemGrid.css"
+import PageNumberSelector from "../PageNumberSelector/PageNumberSelector";
+import "./PoemGrid.css";
 
 
-const PoemGrid = () => {
+const PoemGrid: React.FC = () => {
     const searchResults: SearchResult = useLocation().state?.searchResults;
-    //console.log("Hello results:", searchResults);
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [poemRowOne, setpoemRowOne] = useState<Array<JSX.Element>>();
     const [poemRowTwo, setpoemRowTwo] = useState<Array<JSX.Element>>();
+    let noOfResults: number = 0;
 
+    if(searchResults){
+        noOfResults = Object.keys(searchResults).length;
+    };
 
     useEffect(() => {
-        let currentIndex : number = currentPage;
-        let rowOne: Array<JSX.Element> = [];
-        let rowTwo: Array<JSX.Element> = [];
+        const startIndex : number = currentPage * 10;
+        const rowOne: Array<JSX.Element> = [];
+        const rowTwo: Array<JSX.Element> = [];
 
         if(searchResults){
         Object.entries(searchResults).forEach(([key, value]) => {
-            if (currentIndex < currentPage + 5){
-                
-                rowOne.push(
-                    <>
-                        <Col>
+            let currentIndex: number = +key;
+            if(currentIndex >= startIndex){
+                if (currentIndex < startIndex + 5){
+                    rowOne.push(
+                        <Col key={value.Title + value.index} className="poem-list-column" xs={12} sm={6} md>
                             <PoemDetailsCard index={value.index} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
                         </Col>
-                    </>
-                );
-            }
-            else if(currentIndex < currentPage + 10){
-                //console.log(value.Poem, typeof value.Poem)
-                rowTwo.push(
-                    <>
-                        <Col>
+                    );
+                }
+                else if(currentIndex < startIndex + 10){
+                    rowTwo.push(
+                        <Col key={value.Title + value.index} className="poem-list-column" xs={12} sm={6} md>
                             <PoemDetailsCard index={value.index} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
                         </Col>
-                    </>
-                );
-            }
-            currentIndex++;
+                    );
+                };
+            };
         });
-    }
+    };
         setpoemRowOne(rowOne);
         setpoemRowTwo(rowTwo);
     }, [currentPage, searchResults]);
-
+    
     return(
         <>
             <Container className="poem-list-container">
-                <Row className="poem-list-row-one mb-3">
+                <Row className="poem-list-row-one">
                      {poemRowOne}
                 </Row>
-                <Row className="poem-list-row-one">
+                <Row className="poem-list-row-two">
                     {poemRowTwo}
                 </Row>
             </Container>
+            <div className="page-number-selector text-center">
+                <PageNumberSelector noOfResults={noOfResults} currentPage={currentPage} updatePageNumber={(pageNumber) => setCurrentPage(pageNumber)}/>
+            </div>
         </>
     );
 };

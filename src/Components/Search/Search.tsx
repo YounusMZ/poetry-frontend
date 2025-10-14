@@ -6,7 +6,7 @@ import searchPoem from "../../Util/search";
 
 interface Properties{
     updateResults: (newResults : SearchResult) => void,
-}
+};
 
 const Search : React.FC<Properties> = (props: Properties) => {    
     const inputRef = useRef<HTMLInputElement>(null);
@@ -29,9 +29,8 @@ const Search : React.FC<Properties> = (props: Properties) => {
 
     return(
         <>
-            <input type="text" name='poemSearchKeys' id='nav-search' ref={inputRef} onKeyUp={(event) => {onSearchEnter(event)}} />
+            <input type="text" id='nav-search' ref={inputRef} onKeyUp={(event) => {onSearchEnter(event)}} />
             <Button variant='light' onClick={onSearchClick}>Search</Button>
-            <Button variant='light'>Advanced Search</Button>
         </>
     );
 };
