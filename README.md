@@ -24,9 +24,9 @@ To set up:
 
 ### Executing program
 To run:
-* start the nodejs backend
+* start the nodejs backend server
 * run `npm run dev`
 
 ## Planned features
-* importing from json
-* themes and other features.
+* Importing from json
+* Themes and other features.
