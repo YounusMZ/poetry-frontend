@@ -12,10 +12,10 @@ Frontend for [poetry-backend](https://github.com/YounusMZ/poetry-backend). Provi
 
 ## Getting Started
 
-### Uses
-
+### Technologies Used
 * React
 * react-bootstrap
+* Written in Typescript
 
 ### Installing
 To set up:
