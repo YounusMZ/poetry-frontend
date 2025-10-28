@@ -1,6 +1,5 @@
 # Poetry
 
-
 ## Description
 
 Frontend for [poetry-backend](https://github.com/YounusMZ/poetry-backend). Provides a web-gui to search for poems imported from a file.
