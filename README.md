@@ -28,6 +28,6 @@ To run:
 * start the nodejs backend
 * run `npm run dev`
 
-## Planned features:
+## Planned features
 * importing from json
 * themes and other features.
