@@ -28,5 +28,4 @@ To run:
 * run `npm run dev`
 
 ## Planned features
-* Importing from json
 * Themes and other features.
