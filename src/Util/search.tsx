@@ -2,9 +2,10 @@ import React from "react";
 import fetchContent from "./request"
 import { type SearchResult } from "./poem";
 
+const apiUrl = import.meta.env.VITE_BACKEND_API_URL;
+
 const searchWithKeys = (searchKeyList: string[][]) => {
-    const mainUrl : string = window.location.hostname;
-    const searchURL: URL = new URL("http://" + mainUrl + ":3000/search");
+    const searchURL: URL = new URL(apiUrl + "/search");
     const searchParams = new URLSearchParams(searchKeyList);
     searchURL.search = searchParams.toString();
     const fetchedPoems: Promise<SearchResult> = fetchContent(searchURL);

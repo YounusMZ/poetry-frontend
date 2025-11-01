@@ -10,17 +10,17 @@ const RandomPoem: React.FC = () => {
     const [randomPoems, setRandomPoems] = useState<SearchResult>();
     const [poemRowOne, setpoemRowOne] = useState<Array<JSX.Element>>();
     const [poemRowTwo, setpoemRowTwo] = useState<Array<JSX.Element>>();
+    const apiUrl = import.meta.env.VITE_BACKEND_API_URL;
     
     useEffect(() => {
         const rowOne: Array<JSX.Element> = [];
         const rowTwo: Array<JSX.Element> = [];
 
         if(!randomPoems){
-            const mainUrl: string = window.location.hostname;
-                fetchContent(new URL("http://" + mainUrl + ":3000/random"))
-                    .then((results: SearchResult) => {
-                    setRandomPoems(results);
-                });
+            fetchContent(new URL(apiUrl + "/random"))
+                .then((results: SearchResult) => {
+                setRandomPoems(results);
+            });
         }
         else {
             Object.entries(randomPoems).forEach(([key, value]) => {
