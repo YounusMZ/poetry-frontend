@@ -17,7 +17,7 @@ const PageNumberSelector: React.FC<Props> = (props: Props) => {
 		if (noOfPages >= 1){
 			for (let number = currentPage - 5; number < currentPage + 5; number++) {
 				if (number >= 0 && number <= noOfPages){
-					adjacentPages.push(<Button variant='link' key={"adjacentPagesButtons" + number} onClick={() => props.updatePageNumber(number)}>{number}</Button>);
+					adjacentPages.push(<Button className='text-decoration-none' variant='link' key={"adjacentPagesButtons" + number} onClick={() => props.updatePageNumber(number)}>{number}</Button>);
 				};
 			};
 		};

@@ -27,14 +27,14 @@ const RandomPoem: React.FC = () => {
                 let currentIndex: number = +key;
                     if (currentIndex < 5){
                         rowOne.push(
-                            <Col key={value.Title + value.index} xs={12} sm={6} md>
+                            <Col key={value.Title + value.Poet} xs={12} sm={6} md>
                                 <PoemDetailsCard index={value.index} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
                             </Col>
                         );
                     }
                     else if(currentIndex < 10){
                         rowTwo.push(
-                            <Col key={value.Title + value.index} xs={12} sm={6} md>
+                            <Col key={value.Title + value.Poet} xs={12} sm={6} md>
                                 <PoemDetailsCard index={value.index} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
                             </Col>
                         );

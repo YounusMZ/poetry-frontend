@@ -10,10 +10,6 @@
     margin-bottom: 1vh;
 }
 
-.poem-list-column{
-    max-width: 20vw;
-}
-
 @media only screen and (max-width: 576px) {
     .poem-list-container{
         margin-top: 1vh;
