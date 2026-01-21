@@ -33,7 +33,7 @@ const PoemGrid: React.FC = () => {
                     console.log(value.Title)
                     rowOne.push(
                         <Col key={value.Title + value.Poet} xs={12} sm={6} md>
-                            <PoemDetailsCard index={value.index} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
+                            <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
                         </Col>
                     );
                 }
@@ -41,7 +41,7 @@ const PoemGrid: React.FC = () => {
                     console.log(value.Title)
                     rowTwo.push(
                         <Col key={value.Title + value.Poet} xs={12} sm={6} md>
-                            <PoemDetailsCard index={value.index} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
+                            <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
                         </Col>
                     );
                 };

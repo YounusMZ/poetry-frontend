@@ -1,5 +1,5 @@
 export interface Poem {
-    index: string;
+    id: string;
     Title: string;
     Poem: string;
     Poet: string;
@@ -7,6 +7,6 @@ export interface Poem {
 };
 
 export interface SearchResult {
-    [index : number]: Poem;
+    id : Poem;
 };
 

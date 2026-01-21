@@ -1,4 +1,5 @@
 import React, { useEffect, useState, type JSX} from "react";
+import { useOutletContext } from "react-router";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,12 +7,17 @@ import type { SearchResult } from "../../Util/poem";
 import PoemDetailsCard from "../PoemDetailsCard/PoemDetailsCard";
 import fetchContent from "./../../Util/request";
 
+interface OutletPoemContext{
+    randomPoems: SearchResult,
+    setRandomPoems: React.Dispatch<React.SetStateAction<SearchResult>>
+}
+
 const RandomPoem: React.FC = () => {
-    const [randomPoems, setRandomPoems] = useState<SearchResult>();
+    const apiUrl = import.meta.env.VITE_BACKEND_API_URL;
+    const { randomPoems, setRandomPoems} = useOutletContext<OutletPoemContext>();
     const [poemRowOne, setpoemRowOne] = useState<Array<JSX.Element>>();
     const [poemRowTwo, setpoemRowTwo] = useState<Array<JSX.Element>>();
-    const apiUrl = import.meta.env.VITE_BACKEND_API_URL;
-    
+
     useEffect(() => {
         const rowOne: Array<JSX.Element> = [];
         const rowTwo: Array<JSX.Element> = [];
@@ -19,7 +25,8 @@ const RandomPoem: React.FC = () => {
         if(!randomPoems){
             fetchContent(new URL(apiUrl + "/random"))
                 .then((results: SearchResult) => {
-                setRandomPoems(results);
+                    setRandomPoems(results);
+                    console.log(results)
             });
         }
         else {
@@ -28,19 +35,19 @@ const RandomPoem: React.FC = () => {
                     if (currentIndex < 5){
                         rowOne.push(
                             <Col key={value.Title + value.Poet} xs={12} sm={6} md>
-                                <PoemDetailsCard index={value.index} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
+                                <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
                             </Col>
                         );
                     }
                     else if(currentIndex < 10){
                         rowTwo.push(
                             <Col key={value.Title + value.Poet} xs={12} sm={6} md>
-                                <PoemDetailsCard index={value.index} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
+                                <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
                             </Col>
                         );
                     };
                 });
-        };
+            };
         setpoemRowOne(rowOne);
         setpoemRowTwo(rowTwo);
     }, [randomPoems])
