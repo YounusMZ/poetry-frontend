@@ -19,6 +19,16 @@
     font-size: 13px;
 }
 
+.card-bookmark-icon{
+    margin-bottom: 1vh;
+    max-width: max-content;
+    max-height: max-content;
+}
+    .card-bookmark-icon:hover{
+        transform: scale(1.01, 1.01);
+        opacity: 0.5;
+    }
+
 @media only screen and (max-width: 574px) {
     .poem-details-card{
         font-size: small;

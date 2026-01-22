@@ -4,6 +4,7 @@ export interface Poem {
     Poem: string;
     Poet: string;
     Tags: string | null;
+    isBookmarked: number;
 };
 
 export interface SearchResult {

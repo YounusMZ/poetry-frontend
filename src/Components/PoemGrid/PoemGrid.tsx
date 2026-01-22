@@ -27,13 +27,14 @@ const PoemGrid: React.FC = () => {
 
         if(searchResults){
         Object.entries(searchResults).forEach(([key, value]) => {
+            console.log(value.id, " : ", value.isBookmarked)
             let currentIndex: number = +key;
             if(currentIndex >= startIndex){
                 if (currentIndex < startIndex + 5){
                     console.log(value.Title)
                     rowOne.push(
                         <Col key={value.Title + value.Poet} xs={12} sm={6} md>
-                            <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
+                            <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null} isBookmarked={value.isBookmarked}/>
                         </Col>
                     );
                 }
@@ -41,7 +42,7 @@ const PoemGrid: React.FC = () => {
                     console.log(value.Title)
                     rowTwo.push(
                         <Col key={value.Title + value.Poet} xs={12} sm={6} md>
-                            <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
+                            <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null} isBookmarked={value.isBookmarked}/>
                         </Col>
                     );
                 };
@@ -52,7 +53,6 @@ const PoemGrid: React.FC = () => {
         setpoemRowTwo(rowTwo);
     }, [currentPage, searchResults]);
     
-    console.log(poemRowOne, poemRowTwo)
     return(
         <>
             <Container className="poem-list-container">

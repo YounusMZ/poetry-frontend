@@ -26,7 +26,6 @@ const RandomPoem: React.FC = () => {
             fetchContent(new URL(apiUrl + "/random"))
                 .then((results: SearchResult) => {
                     setRandomPoems(results);
-                    console.log(results)
             });
         }
         else {
@@ -35,14 +34,14 @@ const RandomPoem: React.FC = () => {
                     if (currentIndex < 5){
                         rowOne.push(
                             <Col key={value.Title + value.Poet} xs={12} sm={6} md>
-                                <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
+                                <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null} isBookmarked={value.isBookmarked}/>
                             </Col>
                         );
                     }
                     else if(currentIndex < 10){
                         rowTwo.push(
                             <Col key={value.Title + value.Poet} xs={12} sm={6} md>
-                                <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null}/>
+                                <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null} isBookmarked={value.isBookmarked}/>
                             </Col>
                         );
                     };
