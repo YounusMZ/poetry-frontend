@@ -10,8 +10,27 @@
     margin-bottom: 1vh;
 }
 
-@media only screen and (max-width: 576px) {
+.poem-column{
+    flex-grow: 0;
+    min-width: 16vw;
+    max-width: 16vw;
+    min-height: 30vh;
+    margin-left: 0vw;
+    margin-right: 1vw;
+}
+
+@media only screen and (max-width:720px) {
     .poem-list-container{
         margin-top: 1vh;
+    }
+
+    .poem-column{
+        flex-grow: 1;
+        min-width: 80vw;
+        max-width: 90vw;
+        min-height: 0vh;
+        margin-top: 1vh;
+        margin-left: 5vw;
+        margin-right: 0vw;
     }
 }

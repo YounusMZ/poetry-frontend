@@ -33,14 +33,14 @@ const RandomPoem: React.FC = () => {
                 let currentIndex: number = +key;
                     if (currentIndex < 5){
                         rowOne.push(
-                            <Col key={value.Title + value.Poet} xs={12} sm={6} md>
+                            <Col key={value.Title + value.Poet} className="poem-column" xs={12} sm={6} md>
                                 <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null} isBookmarked={value.isBookmarked}/>
                             </Col>
                         );
                     }
                     else if(currentIndex < 10){
                         rowTwo.push(
-                            <Col key={value.Title + value.Poet} xs={12} sm={6} md>
+                            <Col key={value.Title + value.Poet} className="poem-column" xs={12} sm={6} md>
                                 <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null} isBookmarked={value.isBookmarked}/>
                             </Col>
                         );

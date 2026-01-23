@@ -33,7 +33,7 @@ const PoemGrid: React.FC = () => {
                 if (currentIndex < startIndex + 5){
                     console.log(value.Title)
                     rowOne.push(
-                        <Col key={value.Title + value.Poet} xs={12} sm={6} md>
+                        <Col key={value.Title + value.Poet} className="poem-column" xs={12} sm={6} md>
                             <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null} isBookmarked={value.isBookmarked}/>
                         </Col>
                     );
@@ -41,7 +41,7 @@ const PoemGrid: React.FC = () => {
                 else if(currentIndex < startIndex + 10){
                     console.log(value.Title)
                     rowTwo.push(
-                        <Col key={value.Title + value.Poet} xs={12} sm={6} md>
+                        <Col key={value.Title + value.Poet} className="poem-column" xs={12} sm={6} md>
                             <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null} isBookmarked={value.isBookmarked}/>
                         </Col>
                     );
@@ -56,8 +56,8 @@ const PoemGrid: React.FC = () => {
     return(
         <>
             <Container className="poem-list-container">
-                <Row className="poem-list-row-one mb-3">
-                     {poemRowOne}
+                <Row className="poem-list-row-one">
+                    {poemRowOne}
                 </Row>
                 <Row className="poem-list-row-two">
                     {poemRowTwo}
