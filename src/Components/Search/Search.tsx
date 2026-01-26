@@ -8,23 +8,30 @@ interface Properties{
     updateResults: (newResults : SearchResult) => void,
 };
 
+const searchHandler = (props: Properties, searchString: string) => {
+    const poemList : Promise<SearchResult> | undefined = searchPoem(searchString);
+    poemList?.then((data : SearchResult) => {
+        props.updateResults(data);
+    })
+}
+
 const Search : React.FC<Properties> = (props: Properties) => {    
     const inputRef = useRef<HTMLInputElement>(null);
 
     const onSearchEnter : KeyboardEventHandler = (event) => {
         if(event.key == "Enter"){
-            const poemList : Promise<SearchResult> | undefined = searchPoem(inputRef);
-            poemList?.then((data : SearchResult) => {
-                props.updateResults(data);
-            })
+            if(inputRef.current){
+                const searchString = inputRef.current.value;
+                searchHandler(props, searchString);
+            }
         }
     }
 
     const onSearchClick : MouseEventHandler = () => {
-        const poemList : Promise<SearchResult> | undefined = searchPoem(inputRef);
-            poemList?.then((data : SearchResult) => {
-                props.updateResults(data);
-            })
+        if(inputRef.current){
+            const searchString = inputRef.current.value;
+            searchHandler(props, searchString);
+        }
     }
 
     return(

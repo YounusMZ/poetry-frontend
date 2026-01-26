@@ -18,7 +18,7 @@ const PoemGrid: React.FC = () => {
 
     if(searchResults){
         noOfResults = Object.keys(searchResults).length;
-    };
+    }
 
     useEffect(() => {
         const startIndex : number = currentPage * 10;

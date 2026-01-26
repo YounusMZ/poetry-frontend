@@ -11,7 +11,7 @@ interface BookmarkStatus {
 }
 
 const getIsBookmarkedCall = (apiUrl: string, id: string,  bookmarkRef: React.RefObject<HTMLImageElement | null>) : Promise<0 | 1 |undefined>  => {
-    return fetch(apiUrl + "/bookmark/:" + id, {
+    return fetch(apiUrl + "/bookmark/" + id, {
                 method: "GET",
                 mode: 'cors'
             })
@@ -35,7 +35,7 @@ const getIsBookmarkedCall = (apiUrl: string, id: string,  bookmarkRef: React.Ref
 }
 
 const  setIsBookmarkedCall = (apiUrl: string, id: string, isBookmarked: number) => {
-    fetch(apiUrl + "/bookmark/:" + id, {
+    fetch(apiUrl + "/bookmark/" + id, {
                 method: "PUT",
                 mode: 'cors',
                 headers: {'Content-Type': 'application/json'},
@@ -64,7 +64,7 @@ const PoemDetailsCard: React.FC<Poem> = (poem: Poem) => {
     }
 
     const onPoemClick: MouseEventHandler = () => {
-        navigate("/poem", {state: {Poem: poem}})
+        navigate("/poem/" + poem.id)
     }
 
     const onBookmarkClick: MouseEventHandler = (e) => {

@@ -1,6 +1,6 @@
 import { type SearchResult } from "./poem";
 
-const fetchContent = (url: URL) => {
+const fetchPoems = (url: URL) => {
     return fetch(url, {
         method: "GET",
         mode: "cors",
@@ -14,4 +14,4 @@ const fetchContent = (url: URL) => {
         .then((data: SearchResult) => data);
 };
 
-export default fetchContent;
+export default fetchPoems;
