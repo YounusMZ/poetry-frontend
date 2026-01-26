@@ -12,7 +12,7 @@ The live site can be found on the [backend repo](https://github.com/YounusMZ/poe
 - Migrate poems from CSV and JSON to local SQLITE database
 - Search for poems by title
 - Boomark your favourite poems
-- Responsive UI - Use it on your phone!
+- Responsive UI
 
 ## Getting Started
 
@@ -25,7 +25,7 @@ The live site can be found on the [backend repo](https://github.com/YounusMZ/poe
 To set up:
 * run `git clone https://github.com/YounusMZ/poetry-frontend.git`
 * run `cd poetry-frontend` 
-* and then run `npm install' to install the dependencies
+* and then run `npm install` to install the dependencies
 
 ### Executing app
 To run:
