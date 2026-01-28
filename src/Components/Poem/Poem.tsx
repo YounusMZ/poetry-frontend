@@ -14,7 +14,12 @@ const getPoem = (apiUrl: string, poemId: number): Promise<Poem> => {
                 }
                 return res.json();
             })
-        .then((data: Poem) => data);
+        .then((data: Poem) => data)
+        .catch((error) => {
+                window.alert("Couldn't connect to server. Check your network connection and try again.");
+                console.error(error);
+                throw error;
+            })
 }
 
 const PoemView : React.FC = () => {
@@ -27,7 +32,7 @@ const PoemView : React.FC = () => {
             const poemId = parseInt(id);
             
             getPoem(apiUrl, poemId).then(data => {
-                setPoem(data)
+                setPoem(data);
             });
         }
     }, [])

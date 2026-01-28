@@ -20,21 +20,26 @@ const getIsBookmarkedCall = (apiUrl: string, id: string,  bookmarkRef: React.Ref
             return res.json()     
         })
         .then((data: BookmarkStatus) => {    
-                if (bookmarkRef.current){
-                    if (data && data.isBookmarked === 1){
-                        return data.isBookmarked;
-                    }
-                    else if (data && data.isBookmarked === 0){
-                        return data.isBookmarked;
-                    }
-                    else {
-                        console.error("Error receiving bookmark status. Invalid response.")
-                    }
+            if (bookmarkRef.current){
+                if (data && data.isBookmarked === 1){
+                    return data.isBookmarked;
                 }
+                else if (data && data.isBookmarked === 0){
+                    return data.isBookmarked;
+                }
+                else {
+                    console.error("Error receiving bookmark status. Invalid response.");
+                }
+            }
+        })
+        .catch((error) => {
+            window.alert("Couldn't connect to server. Check your network connection and try again.");
+            console.error(error);
+            throw error;
         })
 }
 
-const  setIsBookmarkedCall = (apiUrl: string, id: string, isBookmarked: number) => {
+const  setIsBookmarkedCall = (apiUrl: string, id: string, isBookmarked: number, setIsBookmarked: React.Dispatch<React.SetStateAction<number | undefined>>) => {
     fetch(apiUrl + "/bookmark/" + id, {
                 method: "PUT",
                 mode: 'cors',
@@ -42,8 +47,15 @@ const  setIsBookmarkedCall = (apiUrl: string, id: string, isBookmarked: number) 
                 body: JSON.stringify({
                     isBookmarked: isBookmarked
                 })
-            }
-        )
+            })
+            .then((res) => {
+                if (res.ok) setIsBookmarked(isBookmarked);
+            })
+            .catch((error) => {
+                window.alert("Couldn't connect to server. Check your network connection and try again.");
+                console.error(error);
+                throw error;
+            })
 }
 
 const PoemDetailsCard: React.FC<Poem> = (poem: Poem) => {
@@ -69,12 +81,10 @@ const PoemDetailsCard: React.FC<Poem> = (poem: Poem) => {
 
     const onBookmarkClick: MouseEventHandler = (e) => {
         if(isBookmarked === 1){
-            setIsBookmarkedCall(apiUrl, poem.id, 0);
-            setIsBookmarked(0);
+            setIsBookmarkedCall(apiUrl, poem.id, 0, setIsBookmarked);
         }
         else if (isBookmarked === 0){
-            setIsBookmarkedCall(apiUrl, poem.id, 1);
-            setIsBookmarked(1);
+            setIsBookmarkedCall(apiUrl, poem.id, 1, setIsBookmarked);
         }
         e.stopPropagation()
     }

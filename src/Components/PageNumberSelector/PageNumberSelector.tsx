@@ -1,33 +1,50 @@
 import React, { type JSX, useEffect, useState} from 'react';
 import Button from "react-bootstrap/Button";
+import { useNavigate } from 'react-router';
+import "./PageNumberSelector.css";
 
 interface Props {
-	noOfResults: number,
+	noOfResults: number | undefined,
 	currentPage: number,
-	updatePageNumber: (newNumber: number) => void,
-};
+	searchString: string | undefined,
+	updatePageNumber: (newPageNumber: number) => void
+}
 
 const PageNumberSelector: React.FC<Props> = (props: Props) => {
-	const noOfPages: number = props.noOfResults / 10;
-	const currentPage: number = props.currentPage;
+	const navigate = useNavigate();
+	const currentPage = props.currentPage;
 	const [pageButtons, setPageButtons] = useState<Array<JSX.Element>>();
+
+	const onClickHandler = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>, newPageNumber: number) => {
+		if (props.searchString != ""){
+			navigate("/results?poem=" + props.searchString + "&page=" + newPageNumber);
+		} else navigate("/favourites?" + "page=" + newPageNumber);
+		props.updatePageNumber(newPageNumber);
+	}
 
 	useEffect(() => {
 		const adjacentPages: Array<JSX.Element> = [];
-		if (noOfPages >= 1){
-			for (let number = currentPage - 5; number < currentPage + 5; number++) {
-				if (number >= 0 && number <= noOfPages){
-					adjacentPages.push(<Button className='text-decoration-none' variant='link' key={"adjacentPagesButtons" + number} onClick={() => props.updatePageNumber(number)}>{number}</Button>);
+		if (props.noOfResults){
+			let noOfPages = Math.ceil(props.noOfResults / 10);
+			if (noOfPages > 1){
+				for (let pageNumber = currentPage - 4; pageNumber < currentPage + 4; pageNumber++) {
+					if (pageNumber >= 1 && pageNumber <= noOfPages){
+						if (pageNumber === currentPage){
+							adjacentPages.push(<Button className='selector-buttons-selected text-decoration-none' variant='link' key={"adjacentPagesButtons" + pageNumber} onClick={(event) => onClickHandler(event, pageNumber)}>{pageNumber}</Button>);
+						} else {
+							adjacentPages.push(<Button className='selector-buttons text-decoration-none' variant='link' key={"adjacentPagesButtons" + pageNumber} onClick={(event) => onClickHandler(event, pageNumber)}>{pageNumber}</Button>);
+						}
+					};
 				};
 			};
-		};
+		}
 		setPageButtons(adjacentPages);
-	}, [currentPage, noOfPages]);
+	}, [currentPage, props.noOfResults]);
 	
 	return (
-		<>
+		<div className='selector-buttons-container'>
 			{pageButtons}
-		</>
+		</div>
 	);
 };
 

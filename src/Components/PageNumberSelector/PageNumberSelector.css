@@ -1,0 +1,30 @@
+.selector-buttons{
+    color: gray;
+}
+
+.selector-buttons:hover{
+    background-color: lightgray;
+}
+
+.selector-buttons-selected{
+    color: gray;
+    background-color: lightblue;
+}
+
+.selector-buttons-selected:hover{
+    background-color: rgb(151, 191, 204);
+}
+
+.selector-buttons-container{
+    position:fixed;
+    bottom: 6vh;
+    width: 100%;
+}
+
+@media only screen and (max-width:720px) {
+    .selector-buttons-container{
+        position:fixed;
+        bottom: 1vh;
+        width: 100%;
+    }
+}

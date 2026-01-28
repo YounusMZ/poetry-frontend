@@ -2,18 +2,15 @@ import { Outlet, useNavigate } from 'react-router';
 import './App.css';
 import { Button } from 'react-bootstrap';
 import Search from './Components/Search/Search';
-import { useEffect, useState } from 'react';
-import type { SearchResult } from './Util/poem';
-import fetchPoems from "./Util/request";
+import { useState, type JSX } from 'react';
 
 
 function App() {
-	const [searchResults, setSearchResults] = useState<SearchResult>();
-	const [randomPoems, setRandomPoems] = useState<SearchResult>();
+	const [randomPoems, setRandomPoems] = useState<JSX.Element[]>();
 	const navigate = useNavigate();
 
-	const updateSearchResults = (newResults: SearchResult) => {
-		setSearchResults(newResults);
+	const updateSearchString = (newSearchString: String) => {
+		navigate("/results?poem=" + newSearchString + "&page=1");
 	};
 
 	const onRandonmizeClick = () => {
@@ -22,18 +19,8 @@ function App() {
 	}
 
 	const onFavouriteClick = () => {
-		const apiUrl = import.meta.env.VITE_BACKEND_API_URL;
-		const favouritePoems = fetchPoems(new URL(apiUrl + "/favourites"));
-		favouritePoems.then((results) => {
-			navigate("/results", {state: {searchResults: results}});
-		})
+		navigate("/favourites?page=1");
 	}
-
-	useEffect(() => {
-		if (searchResults) {
-			navigate("/results", { state: { searchResults: searchResults } });
-		}
-	}, [searchResults]);
 
 	return (
 		<>
@@ -41,7 +28,7 @@ function App() {
 				<div className='site-header'>
 					<h2 id='site-name' onClick={() => navigate("/", {state: {searchResults: {}}}) }> Poetry </h2>
 					<div id='navigation-container'>
-						<Search updateResults={(newResults: SearchResult) => { updateSearchResults(newResults) }} />
+						<Search updateSearchString={(newSearch: String) => {updateSearchString(newSearch)} }/>
 						<div className='d-md-none mt-1'/>
 						<Button variant='light' onClick={onRandonmizeClick}>Randomize</Button>
 						<Button variant='light' onClick={onFavouriteClick}>Favourites</Button>

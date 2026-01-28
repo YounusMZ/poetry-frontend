@@ -14,6 +14,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} >
           <Route index element={<RandomPoem />} />
           <Route path="/results" element={<PoemGrid />} />
+          <Route path="/favourites" element={<PoemGrid />} />
           <Route path="/poem/:id" element={<PoemView />} />
         </Route>
       </Routes>

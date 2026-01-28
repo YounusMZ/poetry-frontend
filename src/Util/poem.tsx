@@ -5,9 +5,16 @@ export interface Poem {
     Poet: string;
     Tags: string | null;
     isBookmarked: number;
-};
+}
 
-export interface SearchResult {
-    id : Poem;
-};
+export interface SearchResult extends Poem {
+    totalCount: number;
+}
 
+export interface PoemCollection {
+    id: Poem;
+}
+
+export interface SearchResultCollection {
+    id: SearchResult;
+}

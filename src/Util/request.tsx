@@ -1,4 +1,4 @@
-import { type SearchResult } from "./poem";
+import { type SearchResultCollection } from "./poem";
 
 const fetchPoems = (url: URL) => {
     return fetch(url, {
@@ -11,7 +11,12 @@ const fetchPoems = (url: URL) => {
             }
             return response.json();
         })
-        .then((data: SearchResult) => data);
+        .then((data: SearchResultCollection) => data)
+        .catch((error) => {
+                window.alert("Couldn't connect to server. Check your network connection and try again.");
+                console.error(error);
+                throw error;
+            })
 };
 
 export default fetchPoems;

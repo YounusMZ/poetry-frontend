@@ -38,5 +38,10 @@ button{
     #nav-search{
         width: 25vw;
         height: 4vh;
+        margin-left: 2vw;
+    }
+
+    .nav-input-field::placeholder{
+        font-size: 13px;
     }
 }
