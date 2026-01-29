@@ -25,7 +25,7 @@ const makePoemColumns = (results: SearchResultCollection): Array<JSX.Element> =>
 
 const PoemGrid: React.FC = () => {
     const location = useLocation();
-    const searchQuery = new URLSearchParams(location.search);;
+    const searchQuery = new URLSearchParams(location.search);
     const searchQueryPoem = searchQuery.get("poem") ?? "";
     const searchString = searchQueryPoem.replace(" ", "+");
     const pageNumberString = searchQuery.get("page") ?? "1";
@@ -34,37 +34,52 @@ const PoemGrid: React.FC = () => {
     const [poemRowOne, setpoemRowOne] = useState<Array<JSX.Element>>();
     const [poemRowTwo, setpoemRowTwo] = useState<Array<JSX.Element>>();
     const [noOfResults, setNoOfResults] = useState<number>();
-    const [currentPageNumber, setCurrentPageNumber] = useState<number>(pageNumber);
-
-    const updatePageNumber = (newPageNumber: number) => {
-        setCurrentPageNumber(newPageNumber);
-    }
 
     useEffect(() => {
-        console.log("pageNumber: ", currentPageNumber, " serachString: ", searchString);
+        console.log("pageNumber: ", pageNumber, ", serachString: ", searchString);
         if(location.pathname == "/results"){
-            searchPoems(searchString, currentPageNumber).then(
+            searchPoems(searchString, pageNumber).then(
                 (results: SearchResultCollection) => {
                     if(results){
                         const poemColumns = makePoemColumns(results);
-                        setNoOfResults(Object.values(results)[0].totalCount);
-                        setpoemRowOne(poemColumns.slice(0, 5));
-                        setpoemRowTwo(poemColumns.slice(5, 10));
+                        const resultsArray = Object.values(results);
+                        
+                        if (resultsArray.length > 0){
+                            setNoOfResults(Object.values(results)[0].totalCount);
+                            setpoemRowOne(poemColumns.slice(0, 5));
+                            setpoemRowTwo(poemColumns.slice(5, 10));
+                        } else {
+                            setpoemRowOne([
+                                <div key={"no-result-div" + searchString + pageNumber}>
+                                    <p key={"no-result" + searchString + pageNumber} className="no-result-header">No Results</p>
+                                </div>
+                            ]);
+                        }
                     }
             })
         }
         else if (location.pathname == "/favourites"){
-            getFavouritePoems(currentPageNumber).then(
+            getFavouritePoems(pageNumber).then(
                 (results: SearchResultCollection) => {
                     if(results){
                         const poemColumns = makePoemColumns(results);
-                        setNoOfResults(Object.values(results)[0].totalCount);
-                        setpoemRowOne(poemColumns.slice(0, 5));
-                        setpoemRowTwo(poemColumns.slice(5, 10));
+                        const resultsArray = Object.values(results);
+                        
+                        if (resultsArray.length > 0){
+                            setNoOfResults(Object.values(results)[0].totalCount);
+                            setpoemRowOne(poemColumns.slice(0, 5));
+                            setpoemRowTwo(poemColumns.slice(5, 10));
+                        } else {
+                            setpoemRowOne([
+                                <div key={"no-favourites-div" + searchString + pageNumber}>
+                                    <p key={"no-favourites" + searchString + pageNumber} className="no-result-header">No Results</p>
+                                </div>
+                            ]);
+                        }
                     }
             })
         }
-    }, [currentPageNumber, searchQueryPoem]);
+    }, [location.search]);
     
     return(
         <>
@@ -77,7 +92,7 @@ const PoemGrid: React.FC = () => {
                 </Row>
             </Container>
             <div className="page-number-selector text-center">
-                <PageNumberSelector noOfResults={noOfResults} currentPage={pageNumber} searchString={searchString} updatePageNumber={updatePageNumber}/>
+                <PageNumberSelector noOfResults={noOfResults} currentPage={pageNumber} searchString={searchString}/>
             </div>
         </>
     );

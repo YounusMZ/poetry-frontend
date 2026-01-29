@@ -8,8 +8,8 @@ import PoemDetailsCard from "../PoemDetailsCard/PoemDetailsCard";
 import fetchContent from "./../../Util/request";
 
 interface OutletPoemContext{
-    randomPoems: JSX.Element[],
-    setRandomPoems: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+    randomPoems: string[],
+    setRandomPoems: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const makePoemColumns = (results: PoemCollection): Array<JSX.Element> => {
@@ -35,17 +35,25 @@ const RandomPoem: React.FC = () => {
     useEffect(() => {
         if (!randomPoems){
             fetchContent(new URL(apiUrl + "/random"))
-            .then((results: PoemCollection) => {
-                if(results){
-                    let columns: Array<JSX.Element> = makePoemColumns(results);
-                    setpoemRowOne(columns.slice(0, 5));
-                    setpoemRowTwo(columns.slice(5, 10));
-                    setRandomPoems(columns);
-                }
+                .then((results: PoemCollection) => {
+                    if(results){
+                        const columns: Array<JSX.Element> = makePoemColumns(results);
+                        const poemIndexes: string[] = Object.values(results).map((result) => result["id"]);
+                        setpoemRowOne(columns.slice(0, 5));
+                        setpoemRowTwo(columns.slice(5, 10));
+                        setRandomPoems(poemIndexes);
+                    }
             })
-        } else {
-            setpoemRowOne(randomPoems.slice(0, 5));
-            setpoemRowTwo(randomPoems.slice(5, 10));
+        }
+        else {
+            fetchContent(new URL(apiUrl + "/poems?id=" + randomPoems.join("%2B")))
+                .then((results: PoemCollection) => {
+                    if(results){
+                        const columns: Array<JSX.Element> = makePoemColumns(results);
+                        setpoemRowOne(columns.slice(0, 5));
+                        setpoemRowTwo(columns.slice(5, 10));
+                    }
+            })
         }
         
     }, [randomPoems])

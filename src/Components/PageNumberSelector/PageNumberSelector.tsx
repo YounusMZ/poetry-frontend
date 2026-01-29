@@ -6,8 +6,7 @@ import "./PageNumberSelector.css";
 interface Props {
 	noOfResults: number | undefined,
 	currentPage: number,
-	searchString: string | undefined,
-	updatePageNumber: (newPageNumber: number) => void
+	searchString: string | undefined
 }
 
 const PageNumberSelector: React.FC<Props> = (props: Props) => {
@@ -19,7 +18,6 @@ const PageNumberSelector: React.FC<Props> = (props: Props) => {
 		if (props.searchString != ""){
 			navigate("/results?poem=" + props.searchString + "&page=" + newPageNumber);
 		} else navigate("/favourites?" + "page=" + newPageNumber);
-		props.updatePageNumber(newPageNumber);
 	}
 
 	useEffect(() => {
@@ -39,7 +37,7 @@ const PageNumberSelector: React.FC<Props> = (props: Props) => {
 			};
 		}
 		setPageButtons(adjacentPages);
-	}, [currentPage, props.noOfResults]);
+	}, [props]);
 	
 	return (
 		<div className='selector-buttons-container'>

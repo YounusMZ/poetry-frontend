@@ -6,8 +6,8 @@ import './App.css';
 
 
 function App() {
-	const [randomPoems, setRandomPoems] = useState<JSX.Element[]>();
 	const navigate = useNavigate();
+	const [randomPoems, setRandomPoems] = useState<string[]>();
 
 	const updateSearchString = (newSearchString: String) => {
 		navigate("/results?poem=" + newSearchString + "&page=1");
