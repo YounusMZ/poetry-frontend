@@ -5,7 +5,9 @@
 Frontend for [poetry-backend](https://github.com/YounusMZ/poetry-backend). Webapp to view random poems for the fun, search for poems by title and collect your favourites.
 
 ## Demo
-The live site can be found on the [backend repo](https://github.com/YounusMZ/poetry-backend). Screenshots and more details can be found there as well. If you're looking to run the app, be sure to head there. If you're looking to work on the frontend, you're at the right place!
+- Live Site: https://poetry-backend-wv7w.onrender.com.
+- Project Homepage: [Poetry](https://github.com/YounusMZ/poetry-backend)
+- Head there if you want to run the app. Or if you're looking to work on the frontend, you're at the right place!
 
 ## Features
 - Shows random poems on the homepage. Explore every day
