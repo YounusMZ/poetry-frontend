@@ -6,42 +6,7 @@ import bookmark from "./bookmark.png";
 import bookmarkFill from "./bookmarkfilled.png";
 import "./PoemDetailsCard.css";
 
-interface BookmarkStatus {
-    isBookmarked: number;
-}
-
-const getIsBookmarkedCall = (apiUrl: string, id: string,  bookmarkRef: React.RefObject<HTMLImageElement | null>) : Promise<0 | 1 |undefined>  => {
-    return fetch(apiUrl + "/bookmark/" + id, {
-                method: "GET",
-                mode: 'cors'
-            })
-        .then(res => {
-            if (!res.ok) throw new Error(`error status: ${res.status}`);
-            return res.json()     
-        })
-        .then((data: BookmarkStatus) => {    
-            if (bookmarkRef.current){
-                if (data && data.isBookmarked === 1){
-                    bookmarkRef.current.src = bookmarkFill;
-                    return data.isBookmarked;
-                }
-                else if (data && data.isBookmarked === 0){
-                    bookmarkRef.current.src = bookmark;
-                    return data.isBookmarked;
-                }
-                else {
-                    console.error("Error receiving bookmark status. Invalid response.");
-                }
-            }
-        })
-        .catch((error) => {
-            window.alert("Couldn't connect to server. Check your network connection and try again.");
-            console.error(error);
-            throw error;
-        })
-}
-
-const  setIsBookmarkedCall = (apiUrl: string, id: string, isBookmarked: number, setIsBookmarked: React.Dispatch<React.SetStateAction<number | undefined>>) => {
+const  updateBookmark = (apiUrl: string, id: string, isBookmarked: number, setIsBookmarked: React.Dispatch<React.SetStateAction<number>>) => {
     fetch(apiUrl + "/bookmark/" + id, {
                 method: "PUT",
                 mode: 'cors',
@@ -63,19 +28,8 @@ const  setIsBookmarkedCall = (apiUrl: string, id: string, isBookmarked: number, 
 const PoemDetailsCard: React.FC<Poem> = (poem: Poem) => {
     const navigate = useNavigate();
     const apiUrl = import.meta.env.VITE_BACKEND_API_URL;
-    const [isInitialized, setIsInitialized] = useState<boolean>(false);
-    const [isBookmarked, setIsBookmarked] = useState<number>();
+    const [isBookmarked, setIsBookmarked] = useState<number>(poem.isBookmarked);
     const bookmarkRef = React.useRef<HTMLImageElement>(null);
-
-    if(!isInitialized){
-        getIsBookmarkedCall(apiUrl, poem.id, bookmarkRef)
-            .then((data) => {
-                if (data != undefined){
-                    setIsBookmarked(data);
-                    setIsInitialized(true);
-                }
-        })
-    }
 
     const onPoemClick: MouseEventHandler = () => {
         navigate("/poem/" + poem.id)
@@ -83,10 +37,10 @@ const PoemDetailsCard: React.FC<Poem> = (poem: Poem) => {
 
     const onBookmarkClick: MouseEventHandler = (e) => {
         if(isBookmarked === 1){
-            setIsBookmarkedCall(apiUrl, poem.id, 0, setIsBookmarked);
+            updateBookmark(apiUrl, poem.id, 0, setIsBookmarked);
         }
         else if (isBookmarked === 0){
-            setIsBookmarkedCall(apiUrl, poem.id, 1, setIsBookmarked);
+            updateBookmark(apiUrl, poem.id, 1, setIsBookmarked);
         }
         e.stopPropagation()
     }
@@ -107,8 +61,8 @@ const PoemDetailsCard: React.FC<Poem> = (poem: Poem) => {
             <Card className="poem-details-card" onClick={onPoemClick}>
                 <Card.Body>
                     <div className="d-flex flex-row justify-content-between">
-                    <Card.Title className="poem-title mb-2">{poem.Title}</Card.Title>
-                    <img className="card-bookmark-icon" ref={bookmarkRef} onClick={onBookmarkClick}></img>
+                        <Card.Title className="poem-title mb-2">{poem.Title}</Card.Title>
+                        <img className="card-bookmark-icon" ref={bookmarkRef} onClick={onBookmarkClick}></img>
                     </div>
                     <Card.Subtitle className="poem-author mb-3">{"By " + poem.Poet}</Card.Subtitle>
                     <Card.Text>{poem.Poem.substring(0, 50) + "..."}</Card.Text>
