@@ -4,10 +4,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import PoemDetailsCard from "../PoemDetailsCard/PoemDetailsCard";
 import PageNumberSelector from "../PageNumberSelector/PageNumberSelector";
-import "./PoemGrid.css";
 import  { searchPoems, getFavouritePoems } from "../../Util/search";
 import { useLocation } from "react-router";
-import type { SearchResultCollection } from "../../Util/poem";
+import type { SearchResultCollection } from "../../Types/poem";
+import "./PoemGrid.css";
 
 const makePoemColumns = (results: SearchResultCollection): Array<JSX.Element> => {
     const columns: Array<JSX.Element> = [];

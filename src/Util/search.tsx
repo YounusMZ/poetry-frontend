@@ -1,5 +1,5 @@
 import fetchPoems from "./request"
-import { type SearchResultCollection } from "./poem";
+import { type SearchResultCollection } from "./../Types/poem";
 
 const apiUrl = import.meta.env.VITE_BACKEND_API_URL;
 

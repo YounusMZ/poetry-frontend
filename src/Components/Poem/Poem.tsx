@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { type Poem } from "./../../Util/poem";
+import { type Poem } from "./../../Types/poem";
 import "./Poem.css";
 
 const getPoem = (apiUrl: string, poemId: number): Promise<Poem> => {

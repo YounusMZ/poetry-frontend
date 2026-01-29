@@ -1,8 +1,8 @@
 import { Outlet, useNavigate } from 'react-router';
-import './App.css';
+import { useState, type JSX } from 'react';
 import { Button } from 'react-bootstrap';
 import Search from './Components/Search/Search';
-import { useState, type JSX } from 'react';
+import './App.css';
 
 
 function App() {

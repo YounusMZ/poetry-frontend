@@ -1,4 +1,4 @@
-import { type SearchResultCollection } from "./poem";
+import { type SearchResultCollection } from "./../Types/poem";
 
 const fetchPoems = (url: URL) => {
     return fetch(url, {

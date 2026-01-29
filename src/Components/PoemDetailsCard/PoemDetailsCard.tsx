@@ -1,10 +1,10 @@
 import React, { useEffect, useState, type MouseEventHandler } from "react";
 import Card from "react-bootstrap/Card";
-import { type Poem } from "../../Util/poem";
-import "./PoemDetailsCard.css"
+import { type Poem } from "../../Types/poem";
 import { useNavigate } from "react-router";
 import bookmark from "./bookmark.png";
 import bookmarkFill from "./bookmarkfilled.png";
+import "./PoemDetailsCard.css";
 
 interface BookmarkStatus {
     isBookmarked: number;
@@ -22,9 +22,11 @@ const getIsBookmarkedCall = (apiUrl: string, id: string,  bookmarkRef: React.Ref
         .then((data: BookmarkStatus) => {    
             if (bookmarkRef.current){
                 if (data && data.isBookmarked === 1){
+                    bookmarkRef.current.src = bookmarkFill;
                     return data.isBookmarked;
                 }
                 else if (data && data.isBookmarked === 0){
+                    bookmarkRef.current.src = bookmark;
                     return data.isBookmarked;
                 }
                 else {
@@ -64,14 +66,14 @@ const PoemDetailsCard: React.FC<Poem> = (poem: Poem) => {
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
     const [isBookmarked, setIsBookmarked] = useState<number>();
     const bookmarkRef = React.useRef<HTMLImageElement>(null);
-    
-    const isBookmarkedInitialState = getIsBookmarkedCall(apiUrl, poem.id, bookmarkRef);
+
     if(!isInitialized){
-        isBookmarkedInitialState.then((data) => {
-            if (data != undefined){
-                setIsBookmarked(data);
-                setIsInitialized(true);
-            }
+        getIsBookmarkedCall(apiUrl, poem.id, bookmarkRef)
+            .then((data) => {
+                if (data != undefined){
+                    setIsBookmarked(data);
+                    setIsInitialized(true);
+                }
         })
     }
 
