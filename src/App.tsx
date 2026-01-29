@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from 'react-router';
-import { useState, type JSX } from 'react';
+import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Search from './Components/Search/Search';
 import './App.css';
