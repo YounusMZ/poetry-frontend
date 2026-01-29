@@ -9,7 +9,9 @@ import fetchContent from "./../../Util/request";
 
 interface OutletPoemContext{
     randomPoems: string[],
-    setRandomPoems: React.Dispatch<React.SetStateAction<string[]>>
+    setRandomPoems: React.Dispatch<React.SetStateAction<string[]>>,
+    isRandomizeClicked: string[],
+    setIsRandomizeClicked: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const makePoemColumns = (results: PoemCollection): Array<JSX.Element> => {
@@ -28,12 +30,13 @@ const makePoemColumns = (results: PoemCollection): Array<JSX.Element> => {
 
 const RandomPoem: React.FC = () => {
     const apiUrl = import.meta.env.VITE_BACKEND_API_URL;
-    const { randomPoems, setRandomPoems } = useOutletContext<OutletPoemContext>();
+    const { randomPoems, setRandomPoems, isRandomizeClicked, setIsRandomizeClicked } = useOutletContext<OutletPoemContext>();
     const [poemRowOne, setpoemRowOne] = useState<Array<JSX.Element>>();
     const [poemRowTwo, setpoemRowTwo] = useState<Array<JSX.Element>>();
 
     useEffect(() => {
-        if (!randomPoems){
+        if (!randomPoems || isRandomizeClicked){
+            setIsRandomizeClicked(false);
             fetchContent(new URL(apiUrl + "/random"))
                 .then((results: PoemCollection) => {
                     if(results){
@@ -55,8 +58,7 @@ const RandomPoem: React.FC = () => {
                     }
             })
         }
-        
-    }, [randomPoems])
+    }, [isRandomizeClicked])
     
     return(
         <>

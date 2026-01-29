@@ -8,6 +8,7 @@ import './App.css';
 function App() {
 	const navigate = useNavigate();
 	const [randomPoems, setRandomPoems] = useState<string[]>();
+	const [isRandomizeClicked, setIsRandomizeClicked] = useState<boolean>(false);
 
 	const updateSearchString = (newSearchString: String) => {
 		navigate("/results?poem=" + newSearchString + "&page=1");
@@ -15,6 +16,7 @@ function App() {
 
 	const onRandonmizeClick = () => {
 		setRandomPoems(undefined);
+		setIsRandomizeClicked(true);
 		navigate("/");
 	}
 
@@ -36,7 +38,7 @@ function App() {
 				</div>
 			</div>
 			<div>
-				<Outlet context={{randomPoems, setRandomPoems}}/>
+				<Outlet context={{randomPoems, setRandomPoems, isRandomizeClicked, setIsRandomizeClicked}}/>
 			</div>
 		</>
 	);
