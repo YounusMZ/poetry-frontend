@@ -30,35 +30,38 @@ const makePoemColumns = (results: PoemCollection): Array<JSX.Element> => {
 
 const RandomPoem: React.FC = () => {
     const apiUrl = import.meta.env.VITE_BACKEND_API_URL;
-    const { randomPoems, setRandomPoems, isRandomizeClicked, setIsRandomizeClicked } = useOutletContext<OutletPoemContext>();
+    const { randomPoems, setRandomPoems } = useOutletContext<OutletPoemContext>();
     const [poemRowOne, setpoemRowOne] = useState<Array<JSX.Element>>();
     const [poemRowTwo, setpoemRowTwo] = useState<Array<JSX.Element>>();
+    const [skipEffect, setSkipEffect] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!randomPoems || isRandomizeClicked){
-            setIsRandomizeClicked(false);
-            fetchContent(new URL(apiUrl + "/random"))
-                .then((results: PoemCollection) => {
-                    if(results){
-                        const columns: Array<JSX.Element> = makePoemColumns(results);
-                        const poemIndexes: string[] = Object.values(results).map((result) => result["id"]);
-                        setpoemRowOne(columns.slice(0, 5));
-                        setpoemRowTwo(columns.slice(5, 10));
-                        setRandomPoems(poemIndexes);
-                    }
-            })
-        }
-        else {
-            fetchContent(new URL(apiUrl + "/poems?id=" + randomPoems.join("%2B")))
-                .then((results: PoemCollection) => {
-                    if(results){
-                        const columns: Array<JSX.Element> = makePoemColumns(results);
-                        setpoemRowOne(columns.slice(0, 5));
-                        setpoemRowTwo(columns.slice(5, 10));
-                    }
-            })
-        }
-    }, [isRandomizeClicked])
+        if (!skipEffect){
+            if (!randomPoems){
+                fetchContent(new URL(apiUrl + "/random"))
+                    .then((results: PoemCollection) => {
+                        if(results){
+                            const columns: Array<JSX.Element> = makePoemColumns(results);
+                            const poemIndexes: string[] = Object.values(results).map((result) => result["id"]);
+                            setpoemRowOne(columns.slice(0, 5));
+                            setpoemRowTwo(columns.slice(5, 10));
+                            setRandomPoems(poemIndexes);
+                            setSkipEffect(true);
+                        }
+                })
+            }
+            else {
+                fetchContent(new URL(apiUrl + "/poems?id=" + randomPoems.join("%2B")))
+                    .then((results: PoemCollection) => {
+                        if(results){
+                            const columns: Array<JSX.Element> = makePoemColumns(results);
+                            setpoemRowOne(columns.slice(0, 5));
+                            setpoemRowTwo(columns.slice(5, 10));
+                        }
+                })
+            }
+        } else setSkipEffect(false);
+    }, [randomPoems])
     
     return(
         <>
