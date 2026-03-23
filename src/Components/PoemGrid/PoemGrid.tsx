@@ -13,9 +13,10 @@ const makePoemColumns = (results: SearchResultCollection): Array<JSX.Element> =>
     const columns: Array<JSX.Element> = [];
     if(results){
         Object.entries(results).forEach(([_key, value]) => {
+            console.log(value)
             columns.push(
-                    <Col key={value.Title + value.Poet} className="poem-column" xs={12} sm={6} md>
-                        <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null} isBookmarked={value.isBookmarked}/>
+                    <Col key={value.title + value.poet} className="poem-column" xs={12} sm={6} md>
+                        <PoemDetailsCard id={value.id} title={value.title} poet={value.poet} poem={value.poem} tags={null} isBookmarked={value.isBookmarked}/>
                     </Col>
                 )
             })
@@ -41,6 +42,7 @@ const PoemGrid: React.FC = () => {
             searchPoems(searchString, pageNumber).then(
                 (results: SearchResultCollection) => {
                     if(results){
+                        console.log(results)
                         const poemColumns = makePoemColumns(results);
                         const resultsArray = Object.values(results);
                         
@@ -49,11 +51,13 @@ const PoemGrid: React.FC = () => {
                             setpoemRowOne(poemColumns.slice(0, 5));
                             setpoemRowTwo(poemColumns.slice(5, 10));
                         } else {
+                            setNoOfResults(0)
                             setpoemRowOne([
                                 <div key={"no-result-div" + searchString + pageNumber}>
                                     <p key={"no-result" + searchString + pageNumber} className="no-result-header">No Results</p>
                                 </div>
                             ]);
+                            setpoemRowTwo([])
                         }
                     }
             })

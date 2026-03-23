@@ -4,7 +4,7 @@ import { type Poem } from "./../../Types/poem";
 import "./Poem.css";
 
 const getPoem = (apiUrl: string, poemId: number): Promise<Poem> => {
-    return fetch(apiUrl + "/poem/" + poemId + ".json", {
+    return fetch(apiUrl + "/poem/" + poemId, {
         "method": "GET",
         "mode": "cors"
     })
@@ -40,9 +40,9 @@ const PoemView : React.FC = () => {
     return(
         <>
             <div className="poem text-center mt-5">
-                <h3>{poem.Title}</h3>
-                <h6 id="poet-name">{poem.Poet}</h6>
-                <div className="poem-body">{poem.Poem}</div>
+                <h3>{poem.title}</h3>
+                <h6 id="poet-name">{poem.poet}</h6>
+                <div className="poem-body">{poem.poem}</div>
             </div>
         </>
     );

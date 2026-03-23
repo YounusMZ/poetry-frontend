@@ -1,9 +1,9 @@
 export interface Poem {
     id: string;
-    Title: string;
-    Poem: string;
-    Poet: string;
-    Tags: string | null;
+    title: string;
+    poem: string;
+    poet: string;
+    tags: string | null;
     isBookmarked: number;
 }
 

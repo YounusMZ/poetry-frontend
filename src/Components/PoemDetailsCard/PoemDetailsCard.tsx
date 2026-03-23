@@ -32,7 +32,7 @@ const PoemDetailsCard: React.FC<Poem> = (poem: Poem) => {
     const bookmarkRef = React.useRef<HTMLImageElement>(null);
 
     const onPoemClick: MouseEventHandler = () => {
-        navigate("/poem/" + poem.id)
+        navigate("/poem/" + poem.id);
     }
 
     const onBookmarkClick: MouseEventHandler = (e) => {
@@ -61,11 +61,11 @@ const PoemDetailsCard: React.FC<Poem> = (poem: Poem) => {
             <Card className="poem-details-card" onClick={onPoemClick}>
                 <Card.Body>
                     <div className="d-flex flex-row justify-content-between">
-                        <Card.Title className="poem-title mb-2">{poem.Title}</Card.Title>
+                        <Card.Title className="poem-title mb-2">{poem.title}</Card.Title>
                         <img className="card-bookmark-icon" ref={bookmarkRef} onClick={onBookmarkClick}></img>
                     </div>
-                    <Card.Subtitle className="poem-author mb-3">{"By " + poem.Poet}</Card.Subtitle>
-                    <Card.Text>{poem.Poem.substring(0, 50) + "..."}</Card.Text>
+                    <Card.Subtitle className="poem-author mb-3">{"By " + poem.poet}</Card.Subtitle>
+                    <Card.Text>{poem.poem.substring(0, 50) + "..."}</Card.Text>
                 </Card.Body>
             </Card>
         </>

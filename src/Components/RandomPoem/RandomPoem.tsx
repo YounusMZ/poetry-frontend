@@ -19,8 +19,8 @@ const makePoemColumns = (results: PoemCollection): Array<JSX.Element> => {
     if(results){
         Object.entries(results).forEach(([_key, value]) => {
             columns.push(
-                    <Col key={value.Title + value.Poet} className="poem-column" xs={12} sm={6} md>
-                        <PoemDetailsCard id={value.id} Title={value.Title} Poet={value.Poet} Poem={value.Poem} Tags={null} isBookmarked={value.isBookmarked}/>
+                    <Col key={value.title + value.poet} className="poem-column" xs={12} sm={6} md>
+                        <PoemDetailsCard id={value.id} title={value.title} poet={value.poet} poem={value.poem} tags={null} isBookmarked={value.isBookmarked}/>
                     </Col>
                 )
             })
