@@ -41,6 +41,7 @@ const RandomPoem: React.FC = () => {
                 fetchContent(new URL(apiUrl + "/random"))
                     .then((results: PoemCollection) => {
                         if(results){
+                            console.log(Object.values(results)[0])
                             const columns: Array<JSX.Element> = makePoemColumns(results);
                             const poemIndexes: string[] = Object.values(results).map((result) => result["id"]);
                             setpoemRowOne(columns.slice(0, 5));

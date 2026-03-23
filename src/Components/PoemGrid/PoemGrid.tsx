@@ -43,10 +43,10 @@ const PoemGrid: React.FC = () => {
                 (results: SearchResultCollection) => {
                     if(results){
                         console.log(results)
-                        const poemColumns = makePoemColumns(results);
                         const resultsArray = Object.values(results);
                         
                         if (resultsArray.length > 0){
+                            const poemColumns = makePoemColumns(results);
                             setNoOfResults(Object.values(results)[0].totalCount);
                             setpoemRowOne(poemColumns.slice(0, 5));
                             setpoemRowTwo(poemColumns.slice(5, 10));
