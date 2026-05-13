@@ -5,9 +5,12 @@
 Frontend for [poetry-backend](https://github.com/YounusMZ/poetry-backend). Webapp to view random poems for the fun, search for poems by title and collect your favourites.
 
 ## Demo
-- Live Site: https://poetry-backend-wv7w.onrender.com.
+- Live Site: https://poetry-backend-wv7w.onrender.com
 - Project Homepage: [Poetry](https://github.com/YounusMZ/poetry-backend)
 - Head there if you want to run the app. Or if you're looking to work on the frontend, you're at the right place!
+
+## Figma Design
+- You can find the Figma design [here](https://www.figma.com/design/9vMS8gcvAN11VSwmjnOraK/Poetry---Design?node-id=2-163&t=IYi8i3mVtuYzojsU-1).
 
 ## Features
 - Shows random poems on the homepage. Explore every day
